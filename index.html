@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nolan I.</title>
+  <style>
+    :root {
+      --bg: #fafaf7;
+      --text: #1f2328;
+      --muted: #5c636b;
+      --link: #1a5fb4;
+      --rule: #dcdcd6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #16181b;
+        --text: #e8e8e4;
+        --muted: #9aa0a6;
+        --link: #7ab0ff;
+        --rule: #2d3136;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+    main {
+      max-width: 38rem;
+      margin: 0 auto;
+      padding: 4rem 1.25rem;
+    }
+    h1 {
+      font-size: 2.4rem;
+      margin: 0 0 0.25rem;
+      line-height: 1.2;
+    }
+    .tagline {
+      color: var(--muted);
+      margin: 0 0 2.5rem;
+      font-size: 1.1rem;
+    }
+    h2 {
+      font-size: 1.15rem;
+      margin: 2.5rem 0 0.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+    }
+    a { color: var(--link); }
+    a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+    ul { padding-left: 1.2rem; }
+    footer {
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Nolan I.</h1>
+    <p class="tagline">Write a one-line description of yourself here.</p>
+
+    <h2>About</h2>
+    <p>
+      Hi, I'm Nolan. Replace this paragraph with a few sentences about who you are,
+      what you do, and what you're interested in.
+    </p>
+
+    <h2>Projects</h2>
+    <ul>
+      <li><a href="#">Project one</a>: a short description of it</li>
+      <li><a href="#">Project two</a>: a short description of it</li>
+    </ul>
+
+    <h2>Contact</h2>
+    <p>
+      Email: <a href="mailto:you@example.com">you@example.com</a><br>
+      GitHub: <a href="https://github.com/isonn-hash">github.com/isonn-hash</a>
+    </p>
+
+    <footer>&copy; 2026 Nolan I.</footer>
+  </main>
+</body>
+</html>
