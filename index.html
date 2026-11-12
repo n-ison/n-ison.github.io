@@ -4,86 +4,573 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nolan I.</title>
+  <meta name="description" content="Personal website of Nolan I.: career timeline, CV and side projects.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fafaf7;
-      --text: #1f2328;
-      --muted: #5c636b;
-      --link: #1a5fb4;
-      --rule: #dcdcd6;
+      --bg: #f3f5f7;
+      --surface: #ffffff;
+      --ink: #101828;
+      --muted: #5b6577;
+      --rule: #d8dee6;
+      --accent: #2b45f5;
+      --accent-soft: rgba(43, 69, 245, 0.09);
+      --school: #0b8f80;
+      --school-soft: rgba(11, 143, 128, 0.10);
+      --display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+      --body: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #16181b;
-        --text: #e8e8e4;
-        --muted: #9aa0a6;
-        --link: #7ab0ff;
-        --rule: #2d3136;
+        --bg: #0d1117;
+        --surface: #151b24;
+        --ink: #e6eaf0;
+        --muted: #8b95a5;
+        --rule: #232a35;
+        --accent: #7c93ff;
+        --accent-soft: rgba(124, 147, 255, 0.12);
+        --school: #3dcfbb;
+        --school-soft: rgba(61, 207, 187, 0.12);
       }
     }
+
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       background: var(--bg);
-      color: var(--text);
-      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
       line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
-    main {
-      max-width: 38rem;
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .bar {
+      max-width: 52rem;
       margin: 0 auto;
-      padding: 4rem 1.25rem;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
-    h1 {
-      font-size: 2.4rem;
-      margin: 0 0 0.25rem;
-      line-height: 1.2;
-    }
-    .tagline {
-      color: var(--muted);
-      margin: 0 0 2.5rem;
-      font-size: 1.1rem;
-    }
-    h2 {
+    .brand {
+      font-family: var(--display);
+      font-weight: 700;
       font-size: 1.15rem;
-      margin: 2.5rem 0 0.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--rule);
+      letter-spacing: -0.01em;
+      text-decoration: none;
     }
-    a { color: var(--link); }
-    a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
-    ul { padding-left: 1.2rem; }
-    footer {
-      margin-top: 3rem;
+    nav { display: flex; gap: 0.25rem; }
+    nav a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
       color: var(--muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      transition: color 0.15s, background 0.15s;
+    }
+    nav a:hover { color: var(--ink); }
+    nav a[aria-current="page"] {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* ---------- Layout ---------- */
+    main { max-width: 52rem; margin: 0 auto; padding: 0 1.5rem; }
+    .view { display: none; padding: 4rem 0 5rem; }
+    .view.active { display: block; }
+
+    h1, h2, h3 { font-family: var(--display); letter-spacing: -0.02em; line-height: 1.1; margin: 0; }
+    .hero h1 { font-size: clamp(2.8rem, 8vw, 4.6rem); font-weight: 700; }
+    .hero p {
+      max-width: 34rem;
+      margin: 1.25rem 0 0;
+      font-size: 1.15rem;
+      color: var(--muted);
+    }
+    .page-title { font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 700; }
+    .page-intro { max-width: 34rem; margin: 1rem 0 0; color: var(--muted); font-size: 1.05rem; }
+
+    /* ---------- Timeline ---------- */
+    .tl-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 4.5rem 0 2.5rem;
+    }
+    .tl-head h2 { font-size: 1.6rem; font-weight: 600; }
+    .filters { display: flex; gap: 0.4rem; }
+    .filters button {
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--rule);
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      transition: all 0.15s;
+    }
+    .filters button:hover { color: var(--ink); }
+    .filters button[aria-pressed="true"] {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .timeline { position: relative; padding-left: 2.25rem; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 0;
+      width: 2px;
+      background: var(--rule);
+      border-radius: 2px;
+    }
+    .tl-fill {
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      width: 2px;
+      height: 0;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: height 0.12s linear;
+    }
+    .tl-item { position: relative; padding-bottom: 2.75rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item[hidden] { display: none; }
+    .tl-dot {
+      position: absolute;
+      left: -2.25rem;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--rule);
+      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    }
+    .tl-item.reached .tl-dot {
+      border-color: var(--c);
+      background: var(--c);
+    }
+    .tl-item.work { --c: var(--accent); --c-soft: var(--accent-soft); }
+    .tl-item.school { --c: var(--school); --c-soft: var(--school-soft); }
+    .tl-when {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin: 0 0 0.35rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .tl-item h3 { font-size: 1.3rem; font-weight: 600; }
+    .tl-org { margin: 0.2rem 0 0; font-weight: 500; color: var(--c); }
+    .tl-item p.desc { margin: 0.6rem 0 0; color: var(--muted); max-width: 36rem; }
+    .tl-item ul { margin: 0.6rem 0 0; padding-left: 1.1rem; color: var(--muted); max-width: 36rem; }
+    .tl-item li { margin: 0.2rem 0; }
+
+    /* ---------- CV ---------- */
+    .cv-actions { margin-top: 1.75rem; }
+    .btn {
+      display: inline-block;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      color: var(--bg);
+      background: var(--ink);
+      padding: 0.65rem 1.2rem;
+      border-radius: 999px;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .cv-section { margin-top: 3.5rem; }
+    .cv-section > h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+    }
+    .cv-row {
+      display: grid;
+      grid-template-columns: 9.5rem 1fr;
+      gap: 0.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .cv-row .when { font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 0.2rem; }
+    .cv-row h3 { font-size: 1.1rem; font-weight: 600; }
+    .cv-row .org { margin: 0.15rem 0 0; color: var(--muted); }
+    .cv-row ul { margin: 0.5rem 0 0; padding-left: 1.1rem; color: var(--muted); }
+    .cv-row li { margin: 0.2rem 0; }
+    .skills { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.6rem 1.5rem; }
+    .skills dt { font-size: 0.9rem; color: var(--muted); padding-top: 0.15rem; }
+    .skills dd { margin: 0; }
+
+    /* ---------- Projects ---------- */
+    .projects { margin-top: 3rem; border-top: 1px solid var(--rule); }
+    .project {
+      display: grid;
+      grid-template-columns: 5rem 1fr auto;
+      gap: 0.5rem 1.5rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      transition: background 0.15s, padding 0.15s;
+    }
+    .project:hover { background: var(--surface); padding-left: 1rem; padding-right: 1rem; }
+    .project .year { font-size: 0.9rem; color: var(--muted); padding-top: 0.3rem; font-variant-numeric: tabular-nums; }
+    .project h3 { font-size: 1.35rem; font-weight: 600; }
+    .project p { margin: 0.4rem 0 0; color: var(--muted); max-width: 34rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .tags span {
+      font-size: 0.78rem;
+      color: var(--muted);
+      border: 1px solid var(--rule);
+      padding: 0.1rem 0.6rem;
+      border-radius: 999px;
+    }
+    .project .go { font-size: 0.9rem; font-weight: 500; color: var(--accent); padding-top: 0.3rem; white-space: nowrap; }
+
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--rule); }
+    .foot {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 1.75rem 1.5rem 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem 2rem;
       font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .foot nav { gap: 1.25rem; }
+    .foot a { color: var(--muted); text-decoration: none; padding: 0; border-radius: 0; background: none; }
+    .foot a:hover { color: var(--ink); }
+
+    /* ---------- Small screens ---------- */
+    @media (max-width: 36rem) {
+      .bar { padding: 0.75rem 1rem; }
+      main, .foot { padding-left: 1rem; padding-right: 1rem; }
+      nav a { padding: 0.35rem 0.6rem; font-size: 0.9rem; }
+      .cv-row, .skills { grid-template-columns: 1fr; }
+      .project { grid-template-columns: 1fr; }
+      .project:hover { padding-left: 0; padding-right: 0; background: none; }
+      .project .year { padding-top: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
     }
   </style>
 </head>
 <body>
+
+  <header class="site-header">
+    <div class="bar">
+      <a class="brand" href="#home" id="brand"></a>
+      <nav aria-label="Main">
+        <a href="#home" data-view="home">Home</a>
+        <a href="#cv" data-view="cv">CV</a>
+        <a href="#projects" data-view="projects">Projects</a>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <h1>Nolan I.</h1>
-    <p class="tagline">Write a one-line description of yourself here.</p>
+    <!-- HOME -->
+    <section class="view" id="view-home" aria-label="Home">
+      <div class="hero">
+        <h1 id="hero-name"></h1>
+        <p id="hero-bio"></p>
+      </div>
 
-    <h2>About</h2>
-    <p>
-      Hi, I'm Nolan. Replace this paragraph with a few sentences about who you are,
-      what you do, and what you're interested in.
-    </p>
+      <div class="tl-head">
+        <h2>Timeline</h2>
+        <div class="filters" role="group" aria-label="Filter timeline">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="work" aria-pressed="false">Work</button>
+          <button type="button" data-filter="school" aria-pressed="false">School</button>
+        </div>
+      </div>
+      <div class="timeline" id="timeline">
+        <div class="tl-fill" id="tl-fill"></div>
+      </div>
+    </section>
 
-    <h2>Projects</h2>
-    <ul>
-      <li><a href="#">Project one</a>: a short description of it</li>
-      <li><a href="#">Project two</a>: a short description of it</li>
-    </ul>
+    <!-- CV -->
+    <section class="view" id="view-cv" aria-label="CV">
+      <h1 class="page-title">Curriculum vitae</h1>
+      <p class="page-intro" id="cv-summary"></p>
+      <div class="cv-actions">
+        <a class="btn" id="cv-download" href="cv.pdf" download>Download PDF</a>
+      </div>
 
-    <h2>Contact</h2>
-    <p>
-      Email: <a href="mailto:you@example.com">you@example.com</a><br>
-      GitHub: <a href="https://github.com/isonn-hash">github.com/isonn-hash</a>
-    </p>
+      <div class="cv-section">
+        <h2>Experience</h2>
+        <div id="cv-work"></div>
+      </div>
+      <div class="cv-section">
+        <h2>Education</h2>
+        <div id="cv-school"></div>
+      </div>
+      <div class="cv-section">
+        <h2>Skills</h2>
+        <dl class="skills" id="cv-skills"></dl>
+      </div>
+    </section>
 
-    <footer>&copy; 2026 Nolan I.</footer>
+    <!-- PROJECTS -->
+    <section class="view" id="view-projects" aria-label="Projects">
+      <h1 class="page-title">Side projects</h1>
+      <p class="page-intro">Things I build for fun, to learn, or because I wanted them to exist.</p>
+      <div class="projects" id="project-list"></div>
+    </section>
   </main>
+
+  <footer>
+    <div class="foot">
+      <span id="foot-copy"></span>
+      <nav id="foot-links" aria-label="Contact"></nav>
+    </div>
+  </footer>
+
+  <script>
+    /* =====================================================
+       EDIT YOUR CONTENT HERE. Everything on the site is
+       generated from the data below, so you never need to
+       touch the HTML or CSS to update it.
+       ===================================================== */
+
+    const profile = {
+      name: "Nolan I.",
+      bio: "Write one or two sentences about who you are and what you care about. Keep it short and specific.",
+      summary: "A short professional summary goes here. Two or three sentences covering what you do, what you are good at, and what you are looking for next.",
+      cvFile: "cv.pdf", // upload your CV PDF next to index.html with this name
+      links: [
+        { label: "Email",    url: "mailto:you@example.com" },
+        { label: "GitHub",   url: "https://github.com/isonn-hash" },
+        { label: "LinkedIn", url: "https://linkedin.com/in/your-handle" }
+      ]
+    };
+
+    // type: "work" or "school". Newest first.
+    const timeline = [
+      {
+        type: "work",
+        title: "Job Title",
+        org: "Company Name",
+        when: "2025 – Present",
+        desc: "One sentence on what you do or did here.",
+        points: [
+          "A concrete achievement, ideally with a number",
+          "Another thing you built, led, or improved"
+        ]
+      },
+      {
+        type: "work",
+        title: "Internship Title",
+        org: "Another Company",
+        when: "Summer 2024",
+        desc: "One sentence on what you did here.",
+        points: ["Something you shipped or learned"]
+      },
+      {
+        type: "school",
+        title: "BSc in Your Major",
+        org: "Your University",
+        when: "2022 – 2026",
+        desc: "Anything worth noting: honors, relevant coursework, clubs.",
+        points: []
+      },
+      {
+        type: "school",
+        title: "High School Diploma",
+        org: "Your High School",
+        when: "2018 – 2022",
+        desc: "",
+        points: []
+      }
+    ];
+
+    const skills = [
+      { group: "Languages", items: "Python, JavaScript, SQL" },
+      { group: "Tools",     items: "Git, Linux, Figma" },
+      { group: "Interests", items: "Data, web, design" }
+    ];
+
+    const projects = [
+      {
+        name: "Project One",
+        year: "2026",
+        desc: "A sentence or two about what it is and why you made it.",
+        tags: ["Python", "Web"],
+        url: "#"
+      },
+      {
+        name: "Project Two",
+        year: "2025",
+        desc: "A sentence or two about what it is and why you made it.",
+        tags: ["JavaScript", "Open source"],
+        url: "#"
+      },
+      {
+        name: "Project Three",
+        year: "2024",
+        desc: "A sentence or two about what it is and why you made it.",
+        tags: ["Hardware", "Hobby"],
+        url: "#"
+      }
+    ];
+
+    /* =====================================================
+       Rendering (no need to edit below this line)
+       ===================================================== */
+
+    const $ = (s, el = document) => el.querySelector(s);
+    const make = (tag, cls, html) => {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (html != null) e.innerHTML = html;
+      return e;
+    };
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    // Basics
+    document.title = profile.name;
+    $("#brand").textContent = profile.name;
+    $("#hero-name").textContent = profile.name;
+    $("#hero-bio").textContent = profile.bio;
+    $("#cv-summary").textContent = profile.summary;
+    $("#cv-download").href = profile.cvFile;
+    $("#foot-copy").textContent = "© " + new Date().getFullYear() + " " + profile.name;
+    profile.links.forEach(l => {
+      const a = make("a", null, esc(l.label));
+      a.href = l.url;
+      if (!l.url.startsWith("mailto:")) { a.target = "_blank"; a.rel = "noopener"; }
+      $("#foot-links").appendChild(a);
+    });
+
+    // Timeline
+    const tl = $("#timeline");
+    const fill = $("#tl-fill");
+    timeline.forEach(item => {
+      const el = make("article", "tl-item " + item.type);
+      el.dataset.type = item.type;
+      let html = '<span class="tl-dot"></span>' +
+        '<p class="tl-when">' + esc(item.when) + '</p>' +
+        '<h3>' + esc(item.title) + '</h3>' +
+        '<p class="tl-org">' + esc(item.org) + '</p>';
+      if (item.desc) html += '<p class="desc">' + esc(item.desc) + '</p>';
+      if (item.points && item.points.length) {
+        html += '<ul>' + item.points.map(p => '<li>' + esc(p) + '</li>').join("") + '</ul>';
+      }
+      el.innerHTML = html;
+      tl.appendChild(el);
+    });
+
+    // Timeline filters
+    document.querySelectorAll(".filters button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filters button").forEach(b => b.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+        const f = btn.dataset.filter;
+        tl.querySelectorAll(".tl-item").forEach(it => { it.hidden = f !== "all" && it.dataset.type !== f; });
+        updateTimeline();
+      });
+    });
+
+    // Scroll-driven progress line
+    function updateTimeline() {
+      if (!$("#view-home").classList.contains("active")) return;
+      const rect = tl.getBoundingClientRect();
+      const marker = window.innerHeight * 0.6;
+      const progress = Math.max(0, Math.min(rect.height - 6, marker - rect.top - 6));
+      fill.style.height = progress + "px";
+      tl.querySelectorAll(".tl-item").forEach(it => {
+        if (it.hidden) return;
+        const dot = it.querySelector(".tl-dot").getBoundingClientRect();
+        it.classList.toggle("reached", dot.top + 8 < marker);
+      });
+    }
+    window.addEventListener("scroll", updateTimeline, { passive: true });
+    window.addEventListener("resize", updateTimeline);
+
+    // CV
+    const cvRow = item => {
+      const row = make("div", "cv-row");
+      let html = '<div class="when">' + esc(item.when) + '</div><div><h3>' + esc(item.title) + '</h3>' +
+        '<p class="org">' + esc(item.org) + '</p>';
+      const bits = [];
+      if (item.desc) bits.push(item.desc);
+      (item.points || []).forEach(p => bits.push(p));
+      if (bits.length) html += '<ul>' + bits.map(b => '<li>' + esc(b) + '</li>').join("") + '</ul>';
+      row.innerHTML = html + '</div>';
+      return row;
+    };
+    timeline.filter(t => t.type === "work").forEach(t => $("#cv-work").appendChild(cvRow(t)));
+    timeline.filter(t => t.type === "school").forEach(t => $("#cv-school").appendChild(cvRow(t)));
+    skills.forEach(s => {
+      $("#cv-skills").appendChild(make("dt", null, esc(s.group)));
+      $("#cv-skills").appendChild(make("dd", null, esc(s.items)));
+    });
+
+    // Projects
+    projects.forEach(p => {
+      const a = make("a", "project");
+      a.href = p.url;
+      if (p.url.startsWith("http")) { a.target = "_blank"; a.rel = "noopener"; }
+      a.innerHTML =
+        '<span class="year">' + esc(p.year) + '</span>' +
+        '<div><h3>' + esc(p.name) + '</h3><p>' + esc(p.desc) + '</p>' +
+        '<div class="tags">' + p.tags.map(t => '<span>' + esc(t) + '</span>').join("") + '</div></div>' +
+        '<span class="go">View project</span>';
+      $("#project-list").appendChild(a);
+    });
+
+    // Simple router: #home, #cv, #projects
+    const views = ["home", "cv", "projects"];
+    function route() {
+      const name = location.hash.replace("#", "");
+      const current = views.includes(name) ? name : "home";
+      views.forEach(v => $("#view-" + v).classList.toggle("active", v === current));
+      document.querySelectorAll("nav a[data-view]").forEach(a => {
+        if (a.dataset.view === current) a.setAttribute("aria-current", "page");
+        else a.removeAttribute("aria-current");
+      });
+      window.scrollTo(0, 0);
+      updateTimeline();
+    }
+    window.addEventListener("hashchange", route);
+    route();
+  </script>
 </body>
 </html>
